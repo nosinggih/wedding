@@ -1,4 +1,34 @@
-/* RESET */
+/* 
+   Tema: Refactored Dynamic Section Layout (Berbasis Whimsical Extended)
+   Pendekatan Ekstra: Full Width Thematic Block, Raster Image Decor (.webp), Kinerja Ultra-Ringan
+*/
+
+:root {
+    /* Palet Warna Extended yang Harmonis */
+    --color-sage-light: #DFE5DA;
+    /* Pale sage sangat lembut untuk hero & footer */
+    --color-sage-deep: #475D52;
+    /* Warna berat, kaya & kontras untuk Akad */
+    --color-sand: #F7EFE8;
+    /* Warm sand pastel untuk warna base netral */
+    --color-terra-dusty: #DDA795;
+    /* Dusty terracotta untuk seksi transisional */
+    --color-terra-deep: #A3503C;
+    /* Soft namun dalam untuk garis/tekanan logis */
+    --color-lavender: #E4DDEC;
+    /* Warna lavender pucat untuk panel kutipan */
+
+    /* Tipografi Teks */
+    --color-charcoal: #363F3C;
+    --color-charcoal-light: #5A6460;
+    --color-white: #FFFFFF;
+
+    /* Konfigurasi Hierarki Kuat */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+/* === Reset & Base Element === */
 * {
     margin: 0;
     padding: 0;
@@ -6,123 +36,423 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family: var(--font-body);
+    color: var(--color-charcoal-light);
+    line-height: 1.8;
+    background-color: var(--color-sand);
+    /* Penting: Cegah overflow x ke kanan karena posisi gambar ornamen absolut border offset */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-    scroll-behavior: smooth;
+/* === Typography Utilities === */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    color: var(--color-charcoal);
+    font-weight: 500;
 }
 
-/* BASE SECTION */
+.title {
+    font-size: 4.2rem;
+    line-height: 1.05;
+    margin: 1.2rem 0;
+    font-style: italic;
+    color: inherit;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: inherit;
+    /* Memberi kontras alami via opasitas */
+    opacity: 0.75;
+}
+
+.date {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-top: 1rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: inherit;
+}
+
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    position: relative;
+    color: inherit;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background-color: var(--color-terra-deep);
+    margin: 1.2rem auto 0;
+    opacity: 0.6;
+}
+
+/* === Layout Basis Seksi Utama (Dynamic) === */
 .section {
-    min-height: 100vh;
-    padding: 40px 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+    position: relative;
+    /* Memberikan ruang napas super luas yang diinginkan gaya Whimsical */
+    padding: 7rem 1.5rem;
     text-align: center;
+    /* Overflows disembunyikan agar ornamen tidak meluber jika memotong margin */
+    overflow: hidden;
+    z-index: 1;
 }
 
-/* WARNA PER SECTION (biar kelihatan jelas dulu) */
-.cover {
-    background: #1abc9c;
-    color: white;
+.content {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    z-index: 5;
 }
 
-.opening {
-    background: #3498db;
-    color: white;
+/* === Aset Dekorasi Raster (.webp/.png) === */
+.decor-img {
+    position: absolute;
+    z-index: 2;
+    /* Elemen tak bisa diklik/highlight secara tak sengaja */
+    pointer-events: none;
+    opacity: 0.85;
+    /* Responsif membesar maksimal setara kanvas kecil */
+    width: 60vw;
+    max-width: 350px;
+    object-fit: contain;
 }
 
-.couple {
-    background: #9b59b6;
-    color: white;
+/* Placement Utilities untuk Aset Ornamen Raster */
+.top-left {
+    top: -8%;
+    left: -10%;
+    transform: rotate(10deg);
 }
 
-.event {
-    background: #e67e22;
-    color: white;
+.top-right {
+    top: -5%;
+    right: -12%;
+    transform: rotate(-15deg);
 }
 
-.gallery {
-    background: #e74c3c;
-    color: white;
+.bottom-left {
+    bottom: -5%;
+    left: -10%;
+    transform: rotate(15deg);
 }
 
-.rsvp {
-    background: #2ecc71;
-    color: white;
+.bottom-right {
+    bottom: -8%;
+    right: -12%;
+    transform: rotate(-10deg);
 }
 
-.footer {
-    background: #34495e;
-    color: white;
+/* Jika ornamen dilampirkan pada section bertema latar gelap */
+.decor-light {
+    /* Meningkatkan keterangan ornamen raster untuk muncul di warna sage deep */
+    filter: brightness(1.5) contrast(0.9) opacity(0.6);
 }
 
-/* TYPO */
-h1 {
-    font-size: 2rem;
+/* ========================================================= */
+/* === PENGGAYAAN TEMATIK UNTUK MASING-MASING SECTION ====== */
+/* ========================================================= */
+
+/* 1. Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Transisi seamless soft gradient tanpa pemisah kasar */
+    background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sand) 100%);
 }
 
-h2 {
-    margin-bottom: 10px;
+/* 2. Quote Section */
+.quote-section {
+    /* background-color: var(--color-lavender);
+    color: var(--color-charcoal); */
 }
 
-/* LOADING SCREEN/
-/* COVER OVERLAY */
-#cover {
+.quote-text {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.quote-source {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.line-spacing {
+    padding: 0 1rem;
+}
+
+/* === GALLERY COLLAGE SECTION === */
+.collage-section {
+    background-color: var(--color-sand);
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
+.collage-wrapper {
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+    margin: 0 auto;
+    aspect-ratio: 1/1; /* Memastikan tumpukan tidak hancur ditiap layar HP */
+}
+
+.collage-item {
+    position: absolute;
+    object-fit: cover;
+}
+
+/* Styling Polaroid Kustom CSS Murni */
+.polaroid-style {
+    border: 8px solid #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+}
+
+/* Transformasi, Penempatan Z-Index Polaroid Sesuai Pesanan */
+.photo-bg {
+    width: 65%;
+    height: 75%;
+    top: 15%;
+    right: 5%;
+    transform: rotate(4deg);
+    z-index: 1;
+}
+
+.photo-main {
+    width: 70%;
+    height: 80%;
+    top: 5%;
+    left: 5%;
+    transform: rotate(-6deg);
+    z-index: 2;
+}
+
+.accent-flower {
+    width: 45%;
+    top: -8%;
+    right: -10%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.accent-scribble {
+    width: 35%;
+    bottom: -5%;
+    left: -2%;
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* 3. Main Event Section (Akad) - TEMA WARNA KAYA & DALAM */
+.event-main-section {
+    background-color: var(--color-sage-deep);
+    color: var(--color-sage-light);
+    /* Font paragraph diubah terang */
+    padding: 10rem 1.5rem;
+    /* Ekstra legapan ruang memvisual border tak terlihat */
+}
+
+/* Revert inherit pada header khusus layar gelap */
+.event-main-section h1,
+.event-main-section h2,
+.event-main-section h3,
+.event-main-section h4 {
+    color: var(--color-white);
+}
+
+.event-main-section .section-title::after {
+    background-color: var(--color-terra-dusty);
+}
+
+.event-details strong {
+    color: var(--color-white);
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+/* 4. Secondary Event (Ngunduh Mantu) - TEMA PASTEL TERRACOTTA */
+.event-secondary-section {
+    background-color: var(--color-terra-dusty);
+    color: var(--color-charcoal);
+}
+
+.event-secondary-section .section-title::after {
+    background-color: var(--color-charcoal);
+}
+
+/* Utilitas detail teks event independen */
+.event-day {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    opacity: 0.8;
+}
+
+.event-date {
+    font-size: 2.8rem;
+    font-family: var(--font-heading);
+    margin: 0.8rem 0;
+    color: inherit;
+}
+
+.event-time {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.event-location {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding-top: 1.2rem;
+    border-top: 1px solid currentColor;
+    display: inline-block;
+}
+
+/* 5. RSVP Section */
+.rsvp-section {
+    background-color: var(--color-sand);
+    padding-bottom: 5rem;
+}
+
+.rsvp-text {
+    margin-bottom: 3.5rem;
+    font-size: 0.95rem;
+    padding: 0 1rem;
+}
+
+/* 6. Footer Section */
+.footer-section {
+    background-color: var(--color-sage-light);
+    padding-top: 5rem;
+    padding-bottom: 9rem;
+}
+
+.footer-text {
+    font-size: 0.95rem;
+    margin-bottom: 4rem;
+}
+
+.footer-closing {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-style: italic;
+}
+
+.footer-title {
+    font-size: 3.5rem;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* === DESAIN TOMBOL ELEGAN (CSS MURNI) === */
+.btn-primary {
+    background: var(--color-charcoal);
+    color: var(--color-sand);
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background: var(--color-terra-deep);
+    color: var(--color-white);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* === ANIMASI & COVER SCREEN OVERLAY === */
+.cover-screen {
     position: fixed;
     inset: 0;
+    background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sand) 100%);
     z-index: 9999;
-
-    background: #111;
-    color: white;
-
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-
-    padding: 20px;
+    /* Transisi sesuai logika main.js dari user */
+    transition: opacity 1.2s ease, visibility 1.2s ease, transform 1.2s ease;
 }
 
-.cover-content h1 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.cover-content h2 {
-    margin: 10px 0 20px;
-    font-size: 1.4rem;
-}
-
-.cover-content button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    border: none;
-    background: white;
-    color: black;
-    border-radius: 6px;
-}
-
-/* ANIMASI HILANG */
-#cover.hide {
+/* State Disembunyikan oleh classList.add('hide') dari Js */
+.cover-screen.hide {
     opacity: 0;
     visibility: hidden;
-    transition: all 0.6s ease;
+    transform: scale(1.03);
+    /* Transisi sangat smooth yang elegan menyorot kedepan */
 }
 
-/* RESPONSIVE (tablet ke atas) */
+.cover-content {
+    text-align: center;
+    z-index: 10;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+}
+
+.cover-to {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: var(--color-charcoal-light);
+}
+
+.guest-name {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-style: italic;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+    color: var(--color-charcoal);
+}
+
+/* Desktop Responsiveness Adjustment */
 @media (min-width: 768px) {
-    h1 {
-        font-size: 3rem;
+    .title {
+        font-size: 5rem;
     }
 
-    h2 {
-        font-size: 2rem;
+    .section-title {
+        font-size: 3.5rem;
+    }
+
+    .section {
+        padding: 9rem 2rem;
     }
 }

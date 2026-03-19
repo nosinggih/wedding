@@ -1,38 +1,33 @@
-// ========================
-// GET NAMA TAMU DARI URL
-// ========================
-function getGuestName() {
-    const params = new URLSearchParams(window.location.search);
-    let name = params.get('to');
+// Personalisasi Nama Tamu (Berjalan Otomatis Saat Halaman Dimuat)
+document.addEventListener('DOMContentLoaded', function () {
+    var urlParams = new URLSearchParams(window.location.search);
+    var guestName = urlParams.get('to');
+    var guestNameElement = document.getElementById('guest-name');
 
-    if (!name) return "Tamu Undangan";
-
-    name = decodeURIComponent(name);
-
-    return name
-        .toLowerCase()
-        .replace(/\b\w/g, l => l.toUpperCase());
-}
-
-// ========================
-// OPEN INVITATION
-// ========================
-function openInvitation() {
-    window.scrollTo(0, 0);
-
-    document.getElementById('cover').classList.add('hide');
-    document.body.style.overflow = 'auto';
-}
-
-// ========================
-// INIT
-// ========================
-window.onload = function () {
-    window.scrollTo(0, 0);
-    document.body.style.overflow = 'hidden';
-
-    const guestElement = document.getElementById("guest-name");
-    if (guestElement) {
-        guestElement.innerText = getGuestName();
+    // Ubah teks jika parameter ?to= tersedia
+    if (guestName && guestName.trim() !== '') {
+        guestNameElement.innerText = guestName;
     }
-};
+
+    // Pastikan halaman tidak bisa di-scroll saat cover aktif
+    document.body.style.overflow = 'hidden';
+});
+
+// Logika Buka Undangan (Dipanggil via atribut onclick pada tombol di index.html)
+function openInvitation() {
+    // Di index.html, ID covernya adalah "cover", bukan "cover-screen"
+    var coverScreen = document.getElementById('cover');
+    
+    // Jalankan animasi CSS (menambahkan class 'hide' sesuai deklarasi di style.css)
+    coverScreen.classList.add('hide');
+
+    // Kembalikan scroll pada halaman utama ke atas
+    window.scrollTo(0, 0);
+    document.body.style.overflow = '';
+
+    // Hilangkan elemen dari aliran dokumen setelah animasi CSS selesai
+    // Catatan: Durasi transisi di style.css adalah 1.2s (1200ms)
+    setTimeout(function () {
+        coverScreen.style.display = 'none';
+    }, 1200);
+}

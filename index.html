@@ -1,66 +1,160 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Digital</title>
+    <title>Undangan Pernikahan | Singgih & Hesty</title>
 
+    <!-- Preconnect ke Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Penggunaan tipografi kuat serif dan sans-serif -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS telah menggunakan path baru (assets/css) hasil refactor -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
+    <!-- 
+       =========================================================
+       COVER SCREEN 
+       (Menggunakan personalisasi tamu melalui JavaScript)
+       =========================================================
+    -->
+    <div id="cover" class="cover-screen">
+        <!-- 
+            Menggunakan <picture> untuk optimasi performa raster.
+            Memanggil file .webp; ukur dimensinya dan kompres sebelum di-deploy.
+            fetchpriority="high" sangat penting pada layar utama agar dirender pertama.
+        -->
+        <picture>
+            <source srcset="assets/img/decor-cover.webp" type="image/webp">
+            <img src="assets/img/decor-cover.png" alt="Ornamen Botanical" class="decor-img top-left"
+                fetchpriority="high">
+        </picture>
 
-<!-- COVER -->
-<div id="cover">
-    <div class="cover-content">
-        <h1>Undangan Pernikahan</h1>
-        <p>Kepada Yth.</p>
-        <h2 id="guest-name">Tamu Undangan</h2>
-
-        <button onclick="openInvitation()">Buka Undangan</button>
+        <div class="cover-content">
+            <p class="cover-to">Kepada Yth.:</p>
+            <!-- Teks ini dimutasi oleh `assets/js/main.js` -->
+            <h2 id="guest-name" class="guest-name">Bapak/Ibu/Saudara/i</h2>
+            <button class="btn-primary" onclick="openInvitation()">Buka Undangan</button>
+        </div>
     </div>
-</div>
 
-<!-- HERO -->
-<section class="section cover">
-    <h1>Nama Mempelai</h1>
-    <p>Undangan Pernikahan</p>
-</section>
+    <!-- 
+       =========================================================
+       MAIN CONTENT (Desain Berbasis Section Penuh)
+       =========================================================
+    -->
 
-<!-- OPENING -->
-<section class="section opening">
-    <h2>Opening</h2>
-    <p>Dengan memohon rahmat dan ridho Allah SWT...</p>
-</section>
+    <!-- 1. HERO SECTION (Gradasi Halus) -->
+    <section id="hero" class="section hero-section">
+        <div class="content">
+            <p class="subtitle">The Wedding of</p>
+            <h1 class="title">Singgih & Hesty</h1>
+            <p class="date">Minggu, 5 April 2026</p>
+        </div>
+    </section>
 
-<!-- COUPLE -->
-<section class="section couple">
-    <h2>Mempelai</h2>
-    <p>Nama Pria & Nama Wanita</p>
-</section>
+    <!-- 2. QUOTE SECTION (Latar Pastel Lavender) -->
+    <section id="quote" class="section quote-section">
+        <picture>
+            <!-- Seksi ke bawah menggunakan loading="lazy" menjaga 3G optimization utama -->
+            <source srcset="assets/img/decor-quote.webp" type="image/webp">
+            <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left" loading="lazy">
+        </picture>
+        <div class="content line-spacing">
+            <p class="quote-text">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri
+                dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu
+                rasa kasih dan sayang."</p>
+            <p class="quote-source">(QS. Ar-Rum: 21)</p>
+        </div>
+    </section>
 
-<!-- EVENT -->
-<section class="section event">
-    <h2>Detail Acara</h2>
-    <p>Tanggal, Waktu, Lokasi</p>
-</section>
+    <!-- 3. MAIN EVENT SECTION (Latar Kaya & Dalam) -->
+    <section id="event-main" class="section event-main-section">
+        <div class="content">
+            <h2 class="section-title">Akad Nikah</h2>
+            <div class="event-details">
+                <p class="event-day">Sabtu</p>
+                <p class="event-date">4 April 2026</p>
+                <p class="event-time">10:00 WIB - Selesai</p>
+                <div class="event-location">
+                    <strong>Kelana Coffee & Eatery</strong><br>
+                    Jl. Menteri Supeno No. 11, Manahan, Surakarta, Jawa Tengah
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- GALLERY -->
-<section class="section gallery">
-    <h2>Galeri</h2>
-    <p>Foto-foto nanti di sini</p>
-</section>
+    <!-- 4. SECONDARY EVENT SECTION (Ngunduh Mantu - Warna Latar Berbeda) -->
+    <section id="event-secondary" class="section event-secondary-section">
+        <div class="content">
+            <h2 class="section-title">Ngunduh Mantu</h2>
+            <div class="event-details">
+                <p class="event-day">Minggu</p>
+                <p class="event-date">5 April 2026</p>
+                <p class="event-time">09:00 WIB - 11.30 WIB</p>
+                <div class="event-location">
+                    <strong>Pendopo Javanologi UNS</strong><br>
+                    Universitas Sebelas Maret Surakarta, Jebres, Surakarta
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 5. CLOSING & FOOTER (Latar Pale Sage) -->
+    <footer id="closing" class="section footer-section">
+        <picture>
+            <source srcset="assets/img/decor-footer.webp" type="image/webp">
+            <img src="assets/img/decor-footer.png" alt="Ornamen" class="decor-img bottom-right" loading="lazy">
+        </picture>
 
-<!-- RSVP -->
-<section class="section rsvp">
-    <h2>Ucapan & Doa</h2>
-    <p>Form nanti di sini</p>
-</section>
+        <div class="content">
+            <p class="footer-text">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
+                berkenan hadir untuk memberikan doa restu.</p>
+            <p class="footer-closing">Terima Kasih</p>
+            <h2 class="footer-title">Singgih & Hesty</h2>
+        </div>
 
-<!-- FOOTER -->
-<section class="section footer">
-    <p>Terima kasih</p>
-</section>
+        <div class="content">
+            <div class="collage-wrapper">
+                <!-- Foto Pemandangan (Latar) -->
+                <picture>
+                    <source srcset="assets/img/photo-pemandangan.webp" type="image/webp">
+                    <img src="assets/img/photo-pemandandangan.jpg" alt="Pemandangan"
+                        class="collage-item photo-bg polaroid-style" loading="lazy">
+                </picture>
 
-<script src="assets/js/main.js"></script>
+                <!-- Foto Pasangan (Utama) -->
+                <picture>
+                    <source srcset="assets/img/photo-main.webp" type="image/webp">
+                    <img src="assets/img/photo-main.jpg" alt="Pasangan" class="collage-item photo-main polaroid-style"
+                        loading="lazy">
+                </picture>
+
+                <!-- Aksen Bunga (Menimpa) -->
+                <picture>
+                    <source srcset="assets/img/photo-bunga.webp" type="image/webp">
+                    <img src="assets/img/accent-flower.png" alt="Aksen Bunga" class="collage-item accent-flower"
+                        loading="lazy">
+                </picture>
+
+                <!-- Aksen Coretan/Selotip -->
+                <picture>
+                    <source srcset="assets/img/photo-scribble2.webp" type="image/webp">
+                    <img src="assets/img/accent-scribble.png" alt="Aksen Coretan" class="collage-item accent-scribble"
+                        loading="lazy">
+                </picture>
+            </div>
+        </div>
+    </footer>
+
+    <!-- File Eksternal JS Utama User -->
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>
