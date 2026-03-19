@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Undangan</title>
+
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        input, button { padding: 10px; width: 100%; margin-top: 10px; }
+        .result { margin-top: 20px; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+<h2>Generator Link Undangan</h2>
+
+<input type="text" id="nama" placeholder="Masukkan nama tamu">
+<button onclick="generateLink()">Generate Link</button>
+
+<div class="result" id="hasil"></div>
+
+<script>
+function generateLink() {
+    let nama = document.getElementById('nama').value;
+
+    if (!nama) {
+        alert('Isi nama dulu');
+        return;
+    }
+
+    let encoded = encodeURIComponent(nama);
+
+    let base = window.location.origin + window.location.pathname.replace('generator.html', '');
+
+    let link = base + '?to=' + encoded;
+
+    document.getElementById('hasil').innerHTML = `
+        <p>${link}</p>
+        <button onclick="navigator.clipboard.writeText('${link}')">Copy</button>
+    `;
+}
+</script>
+
+</body>
+</html>
