@@ -16,7 +16,15 @@
 
     <!-- CSS telah menggunakan path baru (assets/css) hasil refactor -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
+<audio id="sfx-open">
+    <source src="assets/audio/button.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="bg-music" loop>
+    <source src="assets/audio/music.mp3" type="audio/mpeg">
+</audio>
 
 <body>
     <!-- 
@@ -40,7 +48,7 @@
         <div class="cover-content">
             <p class="cover-to">Kepada Yth.:</p>
             <!-- Teks ini dimutasi oleh `assets/js/main.js` -->
-            <h2 id="guest-name" class="guest-name">Bapak/Ibu/Saudara/i</h2>
+            <h2 id="guest-name" class="guest-name">Bapak/Ibu/Sdr/i</h2>
             <button class="btn-primary" onclick="openInvitation()">Buka Undangan</button>
         </div>
     </div>
@@ -51,68 +59,105 @@
        =========================================================
     -->
 
-    <!-- 1. HERO SECTION (Gradasi Halus) -->
-    <section id="hero" class="section hero-section">
-        <div class="content">
-            <p class="subtitle">The Wedding of</p>
-            <h1 class="title">Singgih & Hesty</h1>
-            <p class="date">Minggu, 5 April 2026</p>
-        </div>
-    </section>
+    <!-- SEAMLESS TOP GROUP (Terhubung tanpa batas dari Hero hingga Undangan) -->
+    <main class="seamless-top-group">
+        <!-- 1. HERO SECTION -->
+        <section id="hero" class="section hero-section">
+            <picture>
+                <source srcset="assets/img/decor-hero.webp" type="image/webp">
+                <img src="assets/img/decor-hero.png" alt="Ornamen" class="decor-img bottom-left hero-decor"
+                    fetchpriority="high">
+            </picture>
+            <div class="content">
+                <p class="subtitle hero-fade-up">The Wedding of</p>
+                <h1 class="title">
+                    <span class="stagger-1" style="display:inline-block;">Singgih</span>
+                    <span class="stagger-2" style="display:inline-block;">&amp;</span>
+                    <span class="stagger-3" style="display:inline-block;">Hesty</span>
+                </h1>
+                <p class="date hero-fade-delay">Minggu, 5 April 2026</p>
+            </div>
+        </section>
 
-    <!-- 2. QUOTE SECTION (Latar Pastel Lavender) -->
-    <section id="quote" class="section quote-section">
-        <picture>
-            <!-- Seksi ke bawah menggunakan loading="lazy" menjaga 3G optimization utama -->
-            <source srcset="assets/img/decor-quote.webp" type="image/webp">
-            <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left" loading="lazy">
-        </picture>
-        <div class="content line-spacing">
-            <p class="quote-text">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri
-                dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu
-                rasa kasih dan sayang."</p>
-            <p class="quote-source">(QS. Ar-Rum: 21)</p>
-        </div>
-    </section>
+        <!-- 2. QUOTE SECTION -->
+        <section id="quote" class="section quote-section">
+            <picture>
+                <!-- Seksi ke bawah menggunakan loading="lazy" menjaga 3G optimization utama -->
+                <source srcset="assets/img/decor-quote.webp" type="image/webp">
+                <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
+                    loading="lazy">
+            </picture>
+            <div class="content line-spacing scroll-zoom">
+                <p class="quote-text">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
+                    isteri-isteri
+                    dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya
+                    diantaramu
+                    rasa kasih dan sayang."</p>
+                <p class="quote-source">(QS. Ar-Rum: 21)</p>
+            </div>
+        </section>
 
-    <!-- 3. MAIN EVENT SECTION (Latar Kaya & Dalam) -->
-    <section id="event-main" class="section event-main-section">
+        <!-- 3. INVITATION TEXT SECTION -->
+        <section id="invitation-text" class="section invitation-section">
+            <div class="content">
+                <p class="invitation-para">Dengan memohon ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i
+                    untuk hadir pada acara Tasyakuran Pernikahan (Ngunduh Mantu) putra-putri kami, yang akan
+                    dilaksanakan
+                    pada:</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 4. EVENTS SECTION (Akad & Ngunduh Mantu dalam Grid Card Emas/Emerald) -->
+    <section id="events" class="section events-group-section">
         <div class="content">
-            <h2 class="section-title">Akad Nikah</h2>
-            <div class="event-details">
-                <p class="event-day">Sabtu</p>
-                <p class="event-date">4 April 2026</p>
-                <p class="event-time">10:00 WIB - Selesai</p>
-                <div class="event-location">
-                    <strong>Kelana Coffee & Eatery</strong><br>
-                    Jl. Menteri Supeno No. 11, Manahan, Surakarta, Jawa Tengah
+            <h2 class="section-title gold-text">Rangkaian Acara</h2>
+            <div class="events-grid">
+
+                <!-- Card 1: Akad Nikah -->
+                <div class="event-card-item scroll-slide-left">
+                    <picture>
+                        <source srcset="assets/img/decor-quote.webp" type="image/webp">
+                        <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
+                            loading="lazy">
+                    </picture>
+                    <h3 class="event-title gold-text">Akad Nikah</h3>
+                    <div class="event-details ivory-text">
+                        <p class="event-day">Sabtu</p>
+                        <p class="event-date gold-text">4 April 2026</p>
+                        <p class="event-time ivory-text">10:00 WIB - Selesai</p>
+                        <div class="event-location">
+                            <strong class="gold-text">Kelana Coffee & Eatery</strong><br>
+                            <span class="ivory-text">Jl. Menteri Supeno No. 11, Manahan, Surakarta, Jawa Tengah</span>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Card 2: Ngunduh Mantu -->
+                <div class="event-card-item scroll-slide-right">
+                    <picture>
+                        <source srcset="assets/img/decor-quote.webp" type="image/webp">
+                        <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
+                            loading="lazy">
+                    </picture>
+                    <h3 class="event-title gold-text">Ngunduh Mantu</h3>
+                    <div class="event-details ivory-text">
+                        <p class="event-day">Minggu</p>
+                        <p class="event-date gold-text">5 April 2026</p>
+                        <p class="event-time ivory-text">09:00 WIB - 11.30 WIB</p>
+                        <div class="event-location">
+                            <strong class="gold-text">Pendopo Javanologi UNS</strong><br>
+                            <span class="ivory-text">Universitas Sebelas Maret, Jebres, Surakarta</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- 4. SECONDARY EVENT SECTION (Ngunduh Mantu - Warna Latar Berbeda) -->
-    <section id="event-secondary" class="section event-secondary-section">
-        <div class="content">
-            <h2 class="section-title">Ngunduh Mantu</h2>
-            <div class="event-details">
-                <p class="event-day">Minggu</p>
-                <p class="event-date">5 April 2026</p>
-                <p class="event-time">09:00 WIB - 11.30 WIB</p>
-                <div class="event-location">
-                    <strong>Pendopo Javanologi UNS</strong><br>
-                    Universitas Sebelas Maret Surakarta, Jebres, Surakarta
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- 5. CLOSING & FOOTER (Latar Pale Sage) -->
     <footer id="closing" class="section footer-section">
-        <picture>
-            <source srcset="assets/img/decor-footer.webp" type="image/webp">
-            <img src="assets/img/decor-footer.png" alt="Ornamen" class="decor-img bottom-right" loading="lazy">
-        </picture>
-
         <div class="content">
             <p class="footer-text">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
                 berkenan hadir untuk memberikan doa restu.</p>

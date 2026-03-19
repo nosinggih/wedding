@@ -18,10 +18,16 @@
     --color-lavender: #E4DDEC;
     /* Warna lavender pucat untuk panel kutipan */
 
-    /* Tipografi Teks */
+    /* Tipografi Teks & Warna Tambahan Section */
     --color-charcoal: #363F3C;
     --color-charcoal-light: #5A6460;
     --color-white: #FFFFFF;
+    --color-cream: #FCFBF7;
+    /* Background salam & undangan */
+    --color-emerald: #1B3B36;
+    /* Emerald green kaya untuk background event */
+    --color-ivory: #FFFFEA;
+    /* White ivory untuk teks informasi acara */
 
     /* Konfigurasi Hierarki Kuat */
     --font-heading: 'Cormorant Garamond', serif;
@@ -148,7 +154,7 @@ h4 {
 .bottom-left {
     bottom: -5%;
     left: -10%;
-    transform: rotate(15deg);
+    transform: rotate(90deg);
 }
 
 .bottom-right {
@@ -167,19 +173,29 @@ h4 {
 /* === PENGGAYAAN TEMATIK UNTUK MASING-MASING SECTION ====== */
 /* ========================================================= */
 
+/* === SEAMLESS TOP GROUP (Hero, Quote, Invitation) === */
+.seamless-top-group {
+    background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sand) 100%);
+}
+
 /* 1. Hero Section */
 .hero-section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    /* Transisi seamless soft gradient tanpa pemisah kasar */
-    background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sand) 100%);
+    background: transparent;
+    padding-bottom: 2rem;
 }
 
-/* 2. Quote Section */
+/* 2. Quote Section (The Break) */
 .quote-section {
-    /* background-color: var(--color-lavender);
-    color: var(--color-charcoal); */
+    background-color: var(--color-terra-dusty);
+    color: var(--color-white);
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.03), 0 10px 40px rgba(0, 0, 0, 0.03);
 }
 
 .quote-text {
@@ -194,6 +210,7 @@ h4 {
     font-size: 0.85rem;
     letter-spacing: 3px;
     text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .line-spacing {
@@ -202,7 +219,7 @@ h4 {
 
 /* === GALLERY COLLAGE SECTION === */
 .collage-section {
-    background-color: var(--color-sand);
+    background-color: transparent;
     padding-top: 2rem;
     padding-bottom: 5rem;
 }
@@ -212,7 +229,8 @@ h4 {
     max-width: 400px;
     width: 90%;
     margin: 0 auto;
-    aspect-ratio: 1/1; /* Memastikan tumpukan tidak hancur ditiap layar HP */
+    aspect-ratio: 1/1;
+    /* Memastikan tumpukan tidak hancur ditiap layar HP */
 }
 
 .collage-item {
@@ -247,12 +265,34 @@ h4 {
     z-index: 2;
 }
 
+/* Efek Nafas Organik (Tertiup Angin) pada Ornamen Kolase */
+@keyframes flowerBreath {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.03) rotate(0.8deg);
+    }
+}
+
+@keyframes scribbleBreath {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.02) rotate(-0.5deg);
+    }
+}
+
 .accent-flower {
     width: 45%;
     top: -8%;
     right: -10%;
     z-index: 3;
     pointer-events: none;
+    will-change: transform;
+    transform-origin: center right;
+    animation: flowerBreath 8s ease-in-out infinite;
 }
 
 .accent-scribble {
@@ -261,59 +301,104 @@ h4 {
     left: -2%;
     z-index: 4;
     pointer-events: none;
+    will-change: transform;
+    transform-origin: bottom left;
+    animation: scribbleBreath 10s ease-in-out infinite;
+    animation-delay: 2s; /* Jeda waktu agar ayunan kedua ornamen tidak sama */
 }
 
-/* 3. Main Event Section (Akad) - TEMA WARNA KAYA & DALAM */
-.event-main-section {
-    background-color: var(--color-sage-deep);
-    color: var(--color-sage-light);
-    /* Font paragraph diubah terang */
-    padding: 10rem 1.5rem;
-    /* Ekstra legapan ruang memvisual border tak terlihat */
-}
-
-/* Revert inherit pada header khusus layar gelap */
-.event-main-section h1,
-.event-main-section h2,
-.event-main-section h3,
-.event-main-section h4 {
-    color: var(--color-white);
-}
-
-.event-main-section .section-title::after {
-    background-color: var(--color-terra-dusty);
-}
-
-.event-details strong {
-    color: var(--color-white);
-    font-size: 1.1rem;
-    display: block;
-    margin-bottom: 0.4rem;
-}
-
-/* 4. Secondary Event (Ngunduh Mantu) - TEMA PASTEL TERRACOTTA */
-.event-secondary-section {
-    background-color: var(--color-terra-dusty);
+/* === INVITATION TEXT SECTION === */
+.invitation-section {
+    background-color: transparent;
     color: var(--color-charcoal);
+    padding-top: 3rem;
+    padding-bottom: 7rem;
 }
 
-.event-secondary-section .section-title::after {
-    background-color: var(--color-charcoal);
+.invitation-para {
+    font-size: 1.15rem;
+    line-height: 2.2;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 400;
 }
 
-/* Utilitas detail teks event independen */
+/* === EVENTS GROUP SECTION (Emerald Green) === */
+.events-group-section {
+    background-color: var(--color-emerald);
+    color: var(--color-ivory);
+    padding: 9rem 1.5rem;
+}
+
+.events-group-section .section-title::after {
+    background-color: #D4AF37;
+    /* Garis emas tepi */
+}
+
+/* Efek Teks Emas (Linear Gradient) */
+.gold-text {
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #D4AF37;
+    /* Fallback solid gold aksen terang */
+    font-weight: 600;
+}
+
+.ivory-text {
+    color: var(--color-ivory);
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    margin-top: 4rem;
+}
+
+.event-card-item {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 234, 0.25);
+    /* Garis border elegan ivory */
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    /* Float shadow */
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2;
+}
+
+.event-card-item .decor-img {
+    width: 60%;
+    opacity: 0.15;
+    /* Blur rendah supaya ornamen tidak menutupi huruf emas */
+    z-index: -1;
+}
+
+.event-title {
+    font-size: 2.2rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Utilitas Detail Event Card */
 .event-day {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .event-date {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     font-family: var(--font-heading);
     margin: 0.8rem 0;
-    color: inherit;
 }
 
 .event-time {
@@ -325,8 +410,27 @@ h4 {
     font-size: 0.95rem;
     line-height: 1.6;
     padding-top: 1.2rem;
-    border-top: 1px solid currentColor;
-    display: inline-block;
+    border-top: 1px solid rgba(255, 255, 234, 0.25);
+    display: block;
+    margin-top: 1rem;
+}
+
+.event-location strong {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+@media (min-width: 768px) {
+    .events-grid {
+        grid-template-columns: 1fr 1fr;
+        /* Membentuk frame Flex Jajar */
+        gap: 2.5rem;
+    }
+
+    .event-card-item {
+        padding: 4rem 3rem;
+    }
 }
 
 /* 5. RSVP Section */
@@ -455,4 +559,30 @@ h4 {
     .section {
         padding: 9rem 2rem;
     }
+}
+
+/* ========================================================= */
+/* === ANIMASI INTERAKTIF MURNI (SCROLL & ENTRANCE) ======== */
+/* ========================================================= */
+
+.scroll-zoom, .scroll-slide-left, .scroll-slide-right, .scroll-fade-up, .scroll-decor,
+.hero-fade-up, .stagger-1, .stagger-2, .stagger-3, .hero-fade-delay, .hero-decor {
+    will-change: opacity, transform, margin-top;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-top 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Hidden States yang disuntikkan via JS (progressive enhancement support) */
+.scroll-zoom.is-hidden { opacity: 0; transform: scale(0.92); }
+.scroll-slide-left.is-hidden { opacity: 0; transform: translateX(-40px); }
+.scroll-slide-right.is-hidden { opacity: 0; transform: translateX(40px); }
+.scroll-fade-up.is-hidden, .hero-fade-up.is-hidden,
+.stagger-1.is-hidden, .stagger-2.is-hidden, .stagger-3.is-hidden, .hero-fade-delay.is-hidden { 
+    opacity: 0; 
+    transform: translateY(30px); 
+}
+.scroll-decor.is-hidden, .hero-decor.is-hidden { 
+    opacity: 0 !important; 
+    margin-top: 25px !important; 
 }

@@ -11,23 +11,119 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Pastikan halaman tidak bisa di-scroll saat cover aktif
     document.body.style.overflow = 'hidden';
+
+    // 1. SETUP KELAS INISIAL ANIMASI (.is-hidden)
+    // Menjamin Progressive Enhancement (jika JS mati, konten tetap tampil statis)
+    var animElements = document.querySelectorAll('.scroll-zoom, .scroll-slide-left, .scroll-slide-right, .scroll-fade-up, .scroll-decor, .hero-fade-up, .stagger-1, .stagger-2, .stagger-3, .hero-fade-delay, .hero-decor');
+    animElements.forEach(function (el) {
+        el.classList.add('is-hidden');
+    });
+
+    // 2. SETUP INTERSECTION OBSERVER
+    var observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    var scrollObserver = new IntersectionObserver(function(entries, observerRef) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('is-hidden');
+                observerRef.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    var scrollEls = document.querySelectorAll('.scroll-zoom, .scroll-slide-left, .scroll-slide-right, .scroll-fade-up, .scroll-decor');
+    scrollEls.forEach(function(el) {
+        scrollObserver.observe(el);
+    });
 });
 
-// Logika Buka Undangan (Dipanggil via atribut onclick pada tombol di index.html)
+document.addEventListener("visibilitychange", function () {
+    var bgm = document.getElementById("bg-music");
+
+    if (!bgm) return;
+
+    if (document.hidden) {
+        // ⛔ user pindah tab / minimize → pause
+        bgm.pause();
+    } else {
+        // ▶️ user balik lagi → lanjut play
+        bgm.play().catch(function () {
+            console.log("Autoplay diblok saat kembali");
+        });
+    }
+});
+
 function openInvitation() {
-    // Di index.html, ID covernya adalah "cover", bukan "cover-screen"
     var coverScreen = document.getElementById('cover');
-    
-    // Jalankan animasi CSS (menambahkan class 'hide' sesuai deklarasi di style.css)
+
+    // ambil audio
+    var sfx = document.getElementById('sfx-open');
+    var bgm = document.getElementById('bg-music');
+
+    // animasi cover
     coverScreen.classList.add('hide');
 
-    // Kembalikan scroll pada halaman utama ke atas
+    // reset scroll
     window.scrollTo(0, 0);
     document.body.style.overflow = '';
 
-    // Hilangkan elemen dari aliran dokumen setelah animasi CSS selesai
-    // Catatan: Durasi transisi di style.css adalah 1.2s (1200ms)
+    // 🔊 1. play SFX (sekali)
+    if (sfx) {
+        sfx.currentTime = 0;
+        sfx.play().catch(function () {
+            console.log("SFX gagal diputar");
+        });
+    }
+
+    // 🎵 2. delay 2 detik → play BGM (loop + fade in)
+    setTimeout(function () {
+        if (bgm) {
+            bgm.currentTime = 0;
+            fadeInAudio(bgm, 2000); // fade in 2 detik
+        }
+    }, 2000);
+
+    // hide cover setelah animasi selesai (1.2s sesuai CSS kamu)
     setTimeout(function () {
         coverScreen.style.display = 'none';
+
+        // 💫 3. TRIGGER HERO ANIMASI SECARA BERURUTAN (STAGGER)
+        var staggerOpts = [
+            { sel: '.hero-decor', delay: 100 },
+            { sel: '.hero-fade-up', delay: 300 },
+            { sel: '.stagger-1', delay: 500 },
+            { sel: '.stagger-2', delay: 700 },
+            { sel: '.stagger-3', delay: 900 },
+            { sel: '.hero-fade-delay', delay: 1100 }
+        ];
+        staggerOpts.forEach(function (opt) {
+            setTimeout(function () {
+                var els = document.querySelectorAll(opt.sel);
+                els.forEach(function(el) { el.classList.remove('is-hidden'); });
+            }, opt.delay);
+        });
+
     }, 1200);
+}
+
+/* === Fade In Audio (biar smooth, tidak “njeblak”) === */
+function fadeInAudio(audio, duration) {
+    audio.volume = 0;
+    audio.play().catch(function () {
+        console.log("BGM gagal diputar");
+    });
+
+    var step = 0.05;
+    var interval = duration * step;
+
+    var fade = setInterval(function () {
+        if (audio.volume < 1) {
+            audio.volume = Math.min(audio.volume + step, 1);
+        } else {
+            clearInterval(fade);
+        }
+    }, interval);
 }
