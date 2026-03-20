@@ -73,6 +73,7 @@ function openInvitation() {
     // 🔊 1. play SFX (sekali)
     if (sfx) {
         sfx.currentTime = 0;
+        sfx.volume = 0.5;
         sfx.play().catch(function () {
             console.log("SFX gagal diputar");
         });
