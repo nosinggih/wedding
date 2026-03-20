@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 1. SETUP KELAS INISIAL ANIMASI (.is-hidden)
     // Menjamin Progressive Enhancement (jika JS mati, konten tetap tampil statis)
-    var animElements = document.querySelectorAll('.scroll-zoom, .scroll-slide-left, .scroll-slide-right, .scroll-fade-up, .scroll-decor, .hero-fade-up, .stagger-1, .stagger-2, .stagger-3, .hero-fade-delay, .hero-decor');
+    var animElements = document.querySelectorAll('.scroll-zoom, .scroll-slide-left, .scroll-slide-right, .scroll-fade-up, .scroll-decor, .hero-fade-up, .hero-frame-anim');
     animElements.forEach(function (el) {
         el.classList.add('is-hidden');
     });
@@ -90,14 +90,10 @@ function openInvitation() {
     setTimeout(function () {
         coverScreen.style.display = 'none';
 
-        // 💫 3. TRIGGER HERO ANIMASI SECARA BERURUTAN (STAGGER)
+        // 💫 3. TRIGGER HERO ANIMASI BERHARMONI (BINGKAI & KONTEN TEKS)
         var staggerOpts = [
-            { sel: '.hero-decor', delay: 100 },
-            { sel: '.hero-fade-up', delay: 300 },
-            { sel: '.stagger-1', delay: 500 },
-            { sel: '.stagger-2', delay: 700 },
-            { sel: '.stagger-3', delay: 900 },
-            { sel: '.hero-fade-delay', delay: 1100 }
+            { sel: '.hero-frame-anim', delay: 100 }, // Bingkai scale-in duluan sedikit
+            { sel: '.hero-fade-up', delay: 350 }     // Disusul teks konten lift-up
         ];
         staggerOpts.forEach(function (opt) {
             setTimeout(function () {

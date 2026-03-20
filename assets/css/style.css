@@ -32,6 +32,7 @@
     /* Konfigurasi Hierarki Kuat */
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Montserrat', sans-serif;
+    --font-cursive: 'Great Vibes', cursive;
 }
 
 /* === Reset & Base Element === */
@@ -45,14 +46,39 @@ body {
     font-family: var(--font-body);
     color: var(--color-charcoal-light);
     line-height: 1.8;
-    background-color: var(--color-sand);
-    /* Penting: Cegah overflow x ke kanan karena posisi gambar ornamen absolut border offset */
-    overflow-x: hidden;
+    /* Desktop Gutter Soft Gradient (muted light hero gradient) */
+    background: linear-gradient(135deg, #e4ebda 0%, #ebe2d6 100%);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+/* === MOBILE-FIRST DESKTOP WRAPPER === */
+.app-wrapper {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: var(--color-sand);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.12);
+    /* Elevasi Halus */
+    position: relative;
+    overflow-x: hidden;
+    /* Mencegah elemen luber keluar pinggir 'HP' */
 }
 
 /* === Typography Utilities === */
+.text-cursive {
+    font-family: var(--font-cursive);
+    font-size: 1.45em;
+    /* Dipaksa lebih dominan membesar agar imbang dengan huruf normal sans-serif */
+    font-weight: 400;
+    white-space: nowrap;
+    /* Teks jangan terputus pindah baris jika terpotong panjang kata */
+    padding: 0 3px;
+    /* color: var(--color-terra-deep); Opsional jika ingin ganti warna khusus bisa dimasukkan disini nanti */
+}
+
 h1,
 h2,
 h3,
@@ -178,13 +204,73 @@ h4 {
     background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sand) 100%);
 }
 
-/* 1. Hero Section */
+/* 1. Hero Section (Wallpaper Mobile Fit) */
 .hero-section {
-    min-height: 100vh;
+    position: relative;
+    height: 100dvh;
+    /* Sangat persis dengan area aman layar browser mobile */
+    max-width: 480px;
+    /* Lock area sentral */
+    margin: 0 auto;
+    overflow: hidden;
+
     display: flex;
+    flex-direction: column;
     align-items: center;
-    background: transparent;
-    padding-bottom: 2rem;
+    justify-content: center;
+    padding: 3rem 2.5rem;
+    /* Padding ekstra agar menjorok menjauhi bingkai */
+    z-index: 1;
+}
+
+/* Background Frame Terpisah Untuk Animasi Independen Harmoni */
+.hero-frame-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+
+    /* Frame Luxury Ornament difusi sebagai CSS Background Utama dengan Fallback */
+    background-image: url('../img/photo-frame.png');
+    background-image: -webkit-image-set(url('../img/photo-frame.webp') 1x, url('../img/photo-frame.png') 1x);
+    background-image: image-set(url('../img/photo-frame.webp') type('image/webp'), url('../img/photo-frame.png') type('image/png'));
+    background-size: 100% 100%;
+    /* Stretch persis ke dimensi container */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Base Hidden Animasi Khusus Layer Frame */
+.hero-frame-anim {
+    will-change: opacity, transform;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-frame-anim.is-hidden {
+    opacity: 0;
+    transform: scale(0.93);
+    /* Efek Soft Scale-in / Zoom Perlahan */
+}
+
+/* Format Hero Name: 2 Baris Menggunakan Flexbox */
+.hero-name-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.15;
+    margin: 1.5rem 0;
+}
+
+.hero-name-stack .ampersand {
+    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    color: var(--color-terra-deep);
+    /* Aksen kontras teredam */
+    margin: 0.8rem 0;
+    opacity: 0.7;
 }
 
 /* 2. Quote Section (The Break) */
@@ -267,18 +353,24 @@ h4 {
 
 /* Efek Nafas Organik (Tertiup Angin) pada Ornamen Kolase */
 @keyframes flowerBreath {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1) rotate(0deg);
     }
+
     50% {
         transform: scale(1.03) rotate(0.8deg);
     }
 }
 
 @keyframes scribbleBreath {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1) rotate(0deg);
     }
+
     50% {
         transform: scale(1.02) rotate(-0.5deg);
     }
@@ -304,7 +396,8 @@ h4 {
     will-change: transform;
     transform-origin: bottom left;
     animation: scribbleBreath 10s ease-in-out infinite;
-    animation-delay: 2s; /* Jeda waktu agar ayunan kedua ornamen tidak sama */
+    animation-delay: 2s;
+    /* Jeda waktu agar ayunan kedua ornamen tidak sama */
 }
 
 /* === INVITATION TEXT SECTION === */
@@ -421,17 +514,7 @@ h4 {
     margin-bottom: 0.4rem;
 }
 
-@media (min-width: 768px) {
-    .events-grid {
-        grid-template-columns: 1fr 1fr;
-        /* Membentuk frame Flex Jajar */
-        gap: 2.5rem;
-    }
-
-    .event-card-item {
-        padding: 4rem 3rem;
-    }
-}
+/* Responsive Desktop Grid dihapus agar flex/grid tetap stacked di container sempit 480px */
 
 /* 5. RSVP Section */
 .rsvp-section {
@@ -453,7 +536,7 @@ h4 {
 }
 
 .footer-text {
-    font-size: 0.95rem;
+    font-size: 1.15rem;
     margin-bottom: 4rem;
 }
 
@@ -499,6 +582,11 @@ h4 {
 .cover-screen {
     position: fixed;
     inset: 0;
+    /* Kembalikan ke format Edge-to-Edge Adaptive */
+    width: 100%;
+    max-width: none;
+    /* Hapus limitasi lebar dimensi seluler */
+    margin: 0;
     background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sand) 100%);
     z-index: 9999;
     display: flex;
@@ -546,43 +634,49 @@ h4 {
     color: var(--color-charcoal);
 }
 
-/* Desktop Responsiveness Adjustment */
-@media (min-width: 768px) {
-    .title {
-        font-size: 5rem;
-    }
-
-    .section-title {
-        font-size: 3.5rem;
-    }
-
-    .section {
-        padding: 9rem 2rem;
-    }
-}
+/* Padding/Font besar desktop dihapus agar proportional di container seluler 480px */
 
 /* ========================================================= */
 /* === ANIMASI INTERAKTIF MURNI (SCROLL & ENTRANCE) ======== */
 /* ========================================================= */
 
-.scroll-zoom, .scroll-slide-left, .scroll-slide-right, .scroll-fade-up, .scroll-decor,
-.hero-fade-up, .stagger-1, .stagger-2, .stagger-3, .hero-fade-delay, .hero-decor {
+.scroll-zoom,
+.scroll-slide-left,
+.scroll-slide-right,
+.scroll-fade-up,
+.scroll-decor,
+.hero-fade-up,
+.hero-decor {
     will-change: opacity, transform, margin-top;
-    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                margin-top 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+        margin-top 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Base Hidden States yang disuntikkan via JS (progressive enhancement support) */
-.scroll-zoom.is-hidden { opacity: 0; transform: scale(0.92); }
-.scroll-slide-left.is-hidden { opacity: 0; transform: translateX(-40px); }
-.scroll-slide-right.is-hidden { opacity: 0; transform: translateX(40px); }
-.scroll-fade-up.is-hidden, .hero-fade-up.is-hidden,
-.stagger-1.is-hidden, .stagger-2.is-hidden, .stagger-3.is-hidden, .hero-fade-delay.is-hidden { 
-    opacity: 0; 
-    transform: translateY(30px); 
+.scroll-zoom.is-hidden {
+    opacity: 0;
+    transform: scale(0.92);
 }
-.scroll-decor.is-hidden, .hero-decor.is-hidden { 
-    opacity: 0 !important; 
-    margin-top: 25px !important; 
+
+.scroll-slide-left.is-hidden {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.scroll-slide-right.is-hidden {
+    opacity: 0;
+    transform: translateX(40px);
+}
+
+.scroll-fade-up.is-hidden,
+.hero-fade-up.is-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.scroll-decor.is-hidden,
+.hero-decor.is-hidden {
+    opacity: 0 !important;
+    margin-top: 25px !important;
 }

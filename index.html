@@ -9,24 +9,24 @@
     <!-- Preconnect ke Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Penggunaan tipografi kuat serif dan sans-serif -->
+    <!-- Penggunaan tipografi kuat serif, sans-serif, dan tulisan tangan (cursive) -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
     <!-- CSS telah menggunakan path baru (assets/css) hasil refactor -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
-<audio id="sfx-open">
-    <source src="assets/audio/button.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="bg-music" loop>
-    <source src="assets/audio/music.mp3" type="audio/mpeg">
-</audio>
 
 <body>
+    <audio id="sfx-open">
+        <source src="assets/audio/button.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="bg-music" loop>
+        <source src="assets/audio/music.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- 
        =========================================================
        COVER SCREEN 
@@ -53,150 +53,161 @@
         </div>
     </div>
 
-    <!-- 
+    <!-- START APP WRAPPER FOR MOBILE-FIRST DESKTOP -->
+    <div class="app-wrapper">
+
+        <!-- 
        =========================================================
        MAIN CONTENT (Desain Berbasis Section Penuh)
        =========================================================
     -->
 
-    <!-- SEAMLESS TOP GROUP (Terhubung tanpa batas dari Hero hingga Undangan) -->
-    <main class="seamless-top-group">
-        <!-- 1. HERO SECTION -->
-        <section id="hero" class="section hero-section">
-            <picture>
-                <source srcset="assets/img/decor-hero.webp" type="image/webp">
-                <img src="assets/img/decor-hero.png" alt="Ornamen" class="decor-img bottom-left hero-decor"
-                    fetchpriority="high">
-            </picture>
+        <!-- SEAMLESS TOP GROUP (Terhubung tanpa batas dari Hero hingga Undangan) -->
+        <main class="seamless-top-group">
+            <!-- 1. HERO SECTION -->
+            <section id="hero" class="section hero-section">
+                <!-- Background Layer Khusus Animasi Frame Photo -->
+                <div class="hero-frame-bg hero-frame-anim"></div>
+
+                <!-- Konten Tulisan Ditengah Frame -->
+                <div class="content hero-fade-up">
+                    <p class="subtitle">The Wedding of</p>
+                    <h1 class="title hero-name-stack">
+                        <span>Singgih</span>
+                        <span class="ampersand">&amp;</span>
+                        <span>Hesty</span>
+                    </h1>
+                    <p class="date">Minggu, 5 April 2026</p>
+                </div>
+            </section>
+
+            <!-- 2. QUOTE SECTION -->
+            <section id="quote" class="section quote-section">
+                <picture>
+                    <!-- Seksi ke bawah menggunakan loading="lazy" menjaga 3G optimization utama -->
+                    <source srcset="assets/img/decor-event.webp" type="image/webp">
+                    <img src="assets/img/decor-event.png" alt="Ornamen" class="decor-img bottom-right scroll-decor"
+                        loading="lazy">
+                </picture>
+                <div class="content line-spacing scroll-zoom">
+                    <p class="quote-text">"Dan di antara <span class="text-cursive">tanda-tanda kekuasaan-Nya</span>
+                        ialah Dia menciptakan untukmu
+                        isteri-isteri
+                        dari jenismu sendiri, supaya kamu cenderung dan merasa <span
+                            class="text-cursive">tenteram</span> kepadanya, dan dijadikan-Nya
+                        diantaramu
+                        rasa kasih dan sayang."</p>
+                    <p class="quote-source">(QS. Ar-Rum: 21)</p>
+                </div>
+            </section>
+
+            <!-- 3. INVITATION TEXT SECTION -->
+            <section id="invitation-text" class="section invitation-section">
+                <div class="content scroll-fade-up">
+                    <p class="invitation-para">Dengan memohon Ridho Allah SWT, kami
+                        bermaksud mengundang
+                        <span class="text-cursive">Bapak/Ibu/Saudara/i</span>
+                        untuk hadir pada acara <span class="text-cursive">Tasyakuran Pernikahan</span> (Ngunduh Mantu)
+                        putra-putri kami, yang akan
+                        dilaksanakan
+                        pada:
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 4. EVENTS SECTION (Akad & Ngunduh Mantu dalam Grid Card Emas/Emerald) -->
+        <section id="events" class="section events-group-section">
             <div class="content">
-                <p class="subtitle hero-fade-up">The Wedding of</p>
-                <h1 class="title">
-                    <span class="stagger-1" style="display:inline-block;">Singgih</span>
-                    <span class="stagger-2" style="display:inline-block;">&amp;</span>
-                    <span class="stagger-3" style="display:inline-block;">Hesty</span>
-                </h1>
-                <p class="date hero-fade-delay">Minggu, 5 April 2026</p>
-            </div>
-        </section>
+                <h2 class="section-title gold-text">Rangkaian Acara</h2>
+                <div class="events-grid">
 
-        <!-- 2. QUOTE SECTION -->
-        <section id="quote" class="section quote-section">
-            <picture>
-                <!-- Seksi ke bawah menggunakan loading="lazy" menjaga 3G optimization utama -->
-                <source srcset="assets/img/decor-quote.webp" type="image/webp">
-                <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
-                    loading="lazy">
-            </picture>
-            <div class="content line-spacing scroll-zoom">
-                <p class="quote-text">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
-                    isteri-isteri
-                    dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya
-                    diantaramu
-                    rasa kasih dan sayang."</p>
-                <p class="quote-source">(QS. Ar-Rum: 21)</p>
-            </div>
-        </section>
-
-        <!-- 3. INVITATION TEXT SECTION -->
-        <section id="invitation-text" class="section invitation-section">
-            <div class="content">
-                <p class="invitation-para">Dengan memohon ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i
-                    untuk hadir pada acara Tasyakuran Pernikahan (Ngunduh Mantu) putra-putri kami, yang akan
-                    dilaksanakan
-                    pada:</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- 4. EVENTS SECTION (Akad & Ngunduh Mantu dalam Grid Card Emas/Emerald) -->
-    <section id="events" class="section events-group-section">
-        <div class="content">
-            <h2 class="section-title gold-text">Rangkaian Acara</h2>
-            <div class="events-grid">
-
-                <!-- Card 1: Akad Nikah -->
-                <div class="event-card-item scroll-slide-left">
-                    <picture>
-                        <source srcset="assets/img/decor-quote.webp" type="image/webp">
-                        <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
-                            loading="lazy">
-                    </picture>
-                    <h3 class="event-title gold-text">Akad Nikah</h3>
-                    <div class="event-details ivory-text">
-                        <p class="event-day">Sabtu</p>
-                        <p class="event-date gold-text">4 April 2026</p>
-                        <p class="event-time ivory-text">10:00 WIB - Selesai</p>
-                        <div class="event-location">
-                            <strong class="gold-text">Kelana Coffee & Eatery</strong><br>
-                            <span class="ivory-text">Jl. Menteri Supeno No. 11, Manahan, Surakarta, Jawa Tengah</span>
+                    <!-- Card 1: Akad Nikah -->
+                    <div class="event-card-item scroll-slide-left">
+                        <picture>
+                            <source srcset="assets/img/decor-quote.webp" type="image/webp">
+                            <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
+                                loading="lazy">
+                        </picture>
+                        <h3 class="event-title gold-text">Akad Nikah</h3>
+                        <div class="event-details ivory-text">
+                            <p class="event-day">Sabtu</p>
+                            <p class="event-date gold-text">4 April 2026</p>
+                            <p class="event-time ivory-text">10:00 WIB - Selesai</p>
+                            <div class="event-location">
+                                <strong class="gold-text">Kelana Coffee & Eatery</strong><br>
+                                <span class="ivory-text">Jl. Menteri Supeno No. 11, Manahan, Surakarta, Jawa
+                                    Tengah</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Card 2: Ngunduh Mantu -->
-                <div class="event-card-item scroll-slide-right">
-                    <picture>
-                        <source srcset="assets/img/decor-quote.webp" type="image/webp">
-                        <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
-                            loading="lazy">
-                    </picture>
-                    <h3 class="event-title gold-text">Ngunduh Mantu</h3>
-                    <div class="event-details ivory-text">
-                        <p class="event-day">Minggu</p>
-                        <p class="event-date gold-text">5 April 2026</p>
-                        <p class="event-time ivory-text">09:00 WIB - 11.30 WIB</p>
-                        <div class="event-location">
-                            <strong class="gold-text">Pendopo Javanologi UNS</strong><br>
-                            <span class="ivory-text">Universitas Sebelas Maret, Jebres, Surakarta</span>
+                    <!-- Card 2: Ngunduh Mantu -->
+                    <div class="event-card-item scroll-slide-right">
+                        <picture>
+                            <source srcset="assets/img/decor-quote.webp" type="image/webp">
+                            <img src="assets/img/decor-quote.png" alt="Ornamen" class="decor-img top-left scroll-decor"
+                                loading="lazy">
+                        </picture>
+                        <h3 class="event-title gold-text">Ngunduh Mantu</h3>
+                        <div class="event-details ivory-text">
+                            <p class="event-day">Minggu</p>
+                            <p class="event-date gold-text">5 April 2026</p>
+                            <p class="event-time ivory-text">09:00 WIB - 11.30 WIB</p>
+                            <div class="event-location">
+                                <strong class="gold-text">Pendopo Javanologi UNS</strong><br>
+                                <span class="ivory-text">Universitas Sebelas Maret, Jebres, Surakarta</span>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 5. CLOSING & FOOTER (Latar Pale Sage) -->
-    <footer id="closing" class="section footer-section">
-        <div class="content">
-            <p class="footer-text">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
-                berkenan hadir untuk memberikan doa restu.</p>
-            <p class="footer-closing">Terima Kasih</p>
-            <h2 class="footer-title">Singgih & Hesty</h2>
-        </div>
-
-        <div class="content">
-            <div class="collage-wrapper">
-                <!-- Foto Pemandangan (Latar) -->
-                <picture>
-                    <source srcset="assets/img/photo-pemandangan.webp" type="image/webp">
-                    <img src="assets/img/photo-pemandandangan.jpg" alt="Pemandangan"
-                        class="collage-item photo-bg polaroid-style" loading="lazy">
-                </picture>
-
-                <!-- Foto Pasangan (Utama) -->
-                <picture>
-                    <source srcset="assets/img/photo-main.webp" type="image/webp">
-                    <img src="assets/img/photo-main.jpg" alt="Pasangan" class="collage-item photo-main polaroid-style"
-                        loading="lazy">
-                </picture>
-
-                <!-- Aksen Bunga (Menimpa) -->
-                <picture>
-                    <source srcset="assets/img/photo-bunga.webp" type="image/webp">
-                    <img src="assets/img/accent-flower.png" alt="Aksen Bunga" class="collage-item accent-flower"
-                        loading="lazy">
-                </picture>
-
-                <!-- Aksen Coretan/Selotip -->
-                <picture>
-                    <source srcset="assets/img/photo-scribble2.webp" type="image/webp">
-                    <img src="assets/img/accent-scribble.png" alt="Aksen Coretan" class="collage-item accent-scribble"
-                        loading="lazy">
-                </picture>
+        <!-- 5. CLOSING & FOOTER (Latar Pale Sage) -->
+        <footer id="closing" class="section footer-section">
+            <div class="content">
+                <p class="footer-text">Merupakan suatu <span class="text-cursive">kehormatan</span> dan kebahagiaan bagi
+                    kami apabila Bapak/Ibu/Saudara/i
+                    berkenan hadir untuk <span class="text-cursive">memberikan</span> doa restu.</p>
+                <p class="footer-closing">Terima Kasih</p>
+                <h2 class="footer-title">Singgih & Hesty</h2>
             </div>
-        </div>
-    </footer>
+
+            <div class="content">
+                <div class="collage-wrapper">
+                    <!-- Foto Pemandangan (Latar) -->
+                    <picture>
+                        <source srcset="assets/img/photo-pemandangan.webp" type="image/webp">
+                        <img src="assets/img/photo-pemandandangan.jpg" alt="Pemandangan"
+                            class="collage-item photo-bg polaroid-style" loading="lazy">
+                    </picture>
+
+                    <!-- Foto Pasangan (Utama) -->
+                    <picture>
+                        <source srcset="assets/img/photo-main.webp" type="image/webp">
+                        <img src="assets/img/photo-main.jpg" alt="Pasangan"
+                            class="collage-item photo-main polaroid-style" loading="lazy">
+                    </picture>
+
+                    <!-- Aksen Bunga (Menimpa) -->
+                    <picture>
+                        <source srcset="assets/img/photo-bunga.webp" type="image/webp">
+                        <img src="assets/img/accent-flower.png" alt="Aksen Bunga" class="collage-item accent-flower"
+                            loading="lazy">
+                    </picture>
+
+                    <!-- Aksen Coretan/Selotip -->
+                    <picture>
+                        <source srcset="assets/img/photo-scribble2.webp" type="image/webp">
+                        <img src="assets/img/accent-scribble.png" alt="Aksen Coretan"
+                            class="collage-item accent-scribble" loading="lazy">
+                    </picture>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- Tutup app-wrapper -->
 
     <!-- File Eksternal JS Utama User -->
     <script src="assets/js/main.js"></script>
